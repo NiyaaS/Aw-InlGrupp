@@ -265,7 +265,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="PrivateSettings.config" />
     <Content Include="Views\Calendar\Index.cshtml" />
-    <Content Include="Views\Niya\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
