@@ -1,4 +1,4 @@
-﻿using Microsoft.Graph;
+using Microsoft.Graph;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using graph_tutorial.TokenStorage;
@@ -70,5 +70,7 @@ namespace graph_tutorial.Helpers
 
             return await graphClient.Me.Request().GetAsync();
         }
+
+
     }
 }
