@@ -1,4 +1,4 @@
-﻿using graph_tutorial.Models;
+using graph_tutorial.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using graph_tutorial.TokenStorage;
@@ -28,19 +28,15 @@ namespace graph_tutorial.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                // Get the user's token cache
                 var tokenStore = new SessionTokenStore(null,
                     System.Web.HttpContext.Current, ClaimsPrincipal.Current);
 
                 if (tokenStore.HasData())
                 {
-                    // Add the user to the view bag
                     ViewBag.User = tokenStore.GetUserDetails();
                 }
                 else
                 {
-                    // The session has lost data. This happens often
-                    // when debugging. Log out so the user can log back in
                     Request.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
                     filterContext.Result = RedirectToAction("Index", "Home");
                 }

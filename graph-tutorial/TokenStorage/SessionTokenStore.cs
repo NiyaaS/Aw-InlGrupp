@@ -1,6 +1,3 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT license.
-
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using System.Security.Claims;
@@ -9,7 +6,6 @@ using System.Web;
 
 namespace graph_tutorial.TokenStorage
 {
-    // Simple class to serialize into the session
     public class CachedUser
     {
         public string DisplayName { get; set; }
@@ -66,7 +62,6 @@ namespace graph_tutorial.TokenStorage
 
             try
             {
-                // Load the cache from the session
                 args.TokenCache.DeserializeMsalV3((byte[])httpContext.Session[tokenCacheKey]);
             }
             finally
@@ -83,7 +78,6 @@ namespace graph_tutorial.TokenStorage
 
                 try
                 {
-                    // Store the serialized cache in the session
                     httpContext.Session[tokenCacheKey] = args.TokenCache.SerializeMsalV3();
                 }
                 finally
