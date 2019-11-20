@@ -6,7 +6,12 @@
     @if (Request.IsAuthenticated)
     {
         <span>Welcome @ViewBag.User.DisplayName!</span>
-        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text"></p>
+            </div>
+        </div>
     }
     else
     {

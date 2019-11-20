@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Title</label>
+            <input type="text" class="form-control" id="Title"  placeholder="Enter Event Name">
+        </div>
+        <div class="form-group">
+            <label for="">Date</label>
+            <input type="datetime-local" class="form-control" id="Date" @*placeholder="Password"*@>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="Description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Adress</label>
+            <input type="text" class="form-control" id="Adress" placeholder="Adress">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
