@@ -1,0 +1,32 @@
+@model Microsoft.SharePoint.Client.ListItemCollection
+@{
+  ViewBag.Current = "SpFx Fields";
+}
+
+<h2>SpFx Fields ... </h2>
+<table class="table">
+  <thead>
+    <tr>
+      @*<th scope="col"> Id</th>*@
+      <th scope="col">Title</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Description</th>
+      <th scope="col">Address</th>
+      <th scope="col">Attending</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+      <td> @item["Title"]</td>
+      <td> @item["Date"]</td>
+      <td> @item["Time"]</td>
+      <td> @item["Description"]</td>
+      <td> @item["Address"]</td>
+      <td> @item["Attending"]</td>
+    </tr>
+    }
+  </tbody>
+</table>

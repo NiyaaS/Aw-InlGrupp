@@ -1,4 +1,4 @@
-﻿@{
+@{
     var alerts = TempData.ContainsKey(graph_tutorial.Models.Alert.AlertKey) ?
         (List<graph_tutorial.Models.Alert>)TempData[graph_tutorial.Models.Alert.AlertKey] :
         new List<graph_tutorial.Models.Alert>();
@@ -34,10 +34,14 @@
                     </li>
                     @if (Request.IsAuthenticated)
                     {
-                        <li class="nav-item" data-turbolinks="false">
-                            @Html.ActionLink("Calendar", "Index", "Calendar", new { area = "" },
-                                new { @class = ViewBag.Current == "Calendar" ? "nav-link active" : "nav-link" })
-                        </li>
+                      <li class="nav-item" data-turbolinks="false">
+                        @Html.ActionLink("Calendar", "Index", "Calendar", new { area = "" },
+                          new { @class = ViewBag.Current == "Calendar" ? "nav-link active" : "nav-link" })
+                      </li>
+                      <li class="nav-item" data-turbolinks="false">
+                        @Html.ActionLink("SP Detail", "ListDetail", "SpFx", new { area = "" },
+                          new { @class = ViewBag.Current == "SharePoint List Detail" ? "nav-link active" : "nav-link" })
+                      </li>
                     }
                 </ul>
                 <ul class="navbar-nav justify-content-end">
