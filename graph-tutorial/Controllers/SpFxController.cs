@@ -17,8 +17,6 @@ namespace graph_tutorial.Controllers
     public ActionResult ListDetail()
     {
       var fieldData = SpFxServices.GetListData();
-
-     
       return View(fieldData);
     }
   }

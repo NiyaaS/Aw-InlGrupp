@@ -1,4 +1,3 @@
-
 @using Microsoft.SharePoint.Client
 @model Microsoft.SharePoint.Client.ListItemCollection
 
@@ -10,7 +9,6 @@
 <table class="table">
   <thead>
   <tr>
-    @*<th scope="col"> Id</th>*@
     <th scope="col">Title</th>
     <th scope="col">Date</th>
     <th scope="col">Time</th>
@@ -29,7 +27,7 @@
         <td> @item["Date"]</td>
         <td> @item["Time"]</td>
         <td> @item["Description"]</td>
-        <td> @item["Address"]</td>
+        <td> @item["Adress"]</td>
         @foreach (var name in (FieldUserValue[])item["Attending"])
         {
           <td> @name.LookupValue </td>
@@ -40,10 +38,7 @@
   catch (Exception e)
   {
     <tr>
-      <td><strong>Knock knock!</strong></td>
-      <td>Who's there?</td>
-      <td>Ehhmm .. I am Exception --<b style="color: orangered">@e.Message</b></td>
-      <td>Fuck off Bitch  ... {O_O} ...</td>
+      <td><b style="color: orangered">@e.Message</b></td>
     </tr>
   }
   </tbody>
