@@ -33,7 +33,7 @@
                 new { @class = ViewBag.Current == "Home" ? "nav-link active" : "nav-link" })
           </li>
           <li class="nav-item">
-            @Html.ActionLink("Create Aw", "Index", "Form", new { area = "" },
+            @Html.ActionLink("Create Aw", "SetListDetail", "Form", new { area = "" },
                 new { @class = ViewBag.Current == "Form" ? "nav-link active" : "nav-link" })
           </li>
           @if (Request.IsAuthenticated)

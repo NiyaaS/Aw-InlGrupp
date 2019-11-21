@@ -31,7 +31,7 @@ namespace graph_tutorial.Helpers
             return events.CurrentPage;
         }
 
-        private static GraphServiceClient GetAuthenticatedClient()
+        internal static GraphServiceClient GetAuthenticatedClient()
         {
             return new GraphServiceClient(
                 new DelegateAuthenticationProvider(

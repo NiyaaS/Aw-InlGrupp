@@ -321,6 +321,7 @@
     <Compile Include="Services\SpFxServices.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TokenStorage\SessionTokenStore.cs" />
+    <Compile Include="ViewModels\CreateNewItems.cs" />
     <Compile Include="ViewModels\FieldValues.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -374,6 +375,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Services\Helps.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -399,7 +401,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="PrivateSettings.config" />
     <Content Include="Views\Calendar\Index.cshtml" />
-    <Content Include="Views\Form\Index.cshtml" />
+    <Content Include="Views\Form\SetListDetail.cshtml" />
     <Content Include="Views\SpFx\ListDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
