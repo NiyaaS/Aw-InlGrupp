@@ -13,7 +13,6 @@ namespace graph_tutorial.Helpers
 {
     public static class GraphHelper
     {
-        // Load configuration settings from PrivateSettings.config
         private static string appId = ConfigurationManager.AppSettings["ida:AppId"];
         private static string appSecret = ConfigurationManager.AppSettings["ida:AppSecret"];
         private static string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
@@ -48,8 +47,6 @@ namespace graph_tutorial.Helpers
 
                         var accounts = await idClient.GetAccountsAsync();
 
-                // By calling this here, the token can be refreshed
-                // if it's expired right before the Graph call is made
                 var scopes = graphScopes.Split(' ');
                         var result = await idClient.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
                             .ExecuteAsync();

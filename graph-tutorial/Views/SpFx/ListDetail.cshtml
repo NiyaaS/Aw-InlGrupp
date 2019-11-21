@@ -1,4 +1,7 @@
+
+@using Microsoft.SharePoint.Client
 @model Microsoft.SharePoint.Client.ListItemCollection
+
 @{
   ViewBag.Current = "SpFx Fields";
 }
@@ -6,27 +9,46 @@
 <h2>SpFx Fields ... </h2>
 <table class="table">
   <thead>
-    <tr>
-      @*<th scope="col"> Id</th>*@
-      <th scope="col">Title</th>
-      <th scope="col">Date</th>
-      <th scope="col">Time</th>
-      <th scope="col">Description</th>
-      <th scope="col">Address</th>
-      <th scope="col">Attending</th>
-    </tr>
+  <tr>
+    @*<th scope="col"> Id</th>*@
+    <th scope="col">Title</th>
+    <th scope="col">Date</th>
+    <th scope="col">Time</th>
+    <th scope="col">Description</th>
+    <th scope="col">Address</th>
+    <th scope="col">Attending</th>
+  </tr>
   </thead>
   <tbody>
-    @foreach (var item in Model)
+  @try
+  {
+    foreach (var item in Model)
     {
-    <tr>
-      <td> @item["Title"]</td>
-      <td> @item["Date"]</td>
-      <td> @item["Time"]</td>
-      <td> @item["Description"]</td>
-      <td> @item["Address"]</td>
-      <td> @item["Attending"]</td>
-    </tr>
+      <tr>
+        <td> @item["Title"]</td>
+        <td> @item["Date"]</td>
+        <td> @item["Time"]</td>
+        <td> @item["Description"]</td>
+        <td> @item["Address"]</td>
+        @foreach (var name in (FieldUserValue[])item["Attending"])
+        {
+          <td> @name.LookupValue </td>
+        }
+      </tr>
     }
+  }
+  catch (Exception e)
+  {
+    <tr>
+      <td><strong>Knock knock!</strong></td>
+      <td>Who's there?</td>
+      <td>Ehhmm .. I am Exception --<b style="color: orangered">@e.Message</b></td>
+      <td>Fuck off Bitch  ... {O_O} ...</td>
+    </tr>
+  }
   </tbody>
+
 </table>
+
+
+

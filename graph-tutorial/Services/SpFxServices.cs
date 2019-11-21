@@ -14,7 +14,7 @@ namespace graph_tutorial.Services
       var clientContext = CsomHelper.GetSpContext();
       var list = clientContext.Web.Lists.GetByTitle("AwEvents");
 
-      var query = CamlQuery.CreateAllItemsQuery(10);
+      var query = CamlQuery.CreateAllItemsQuery(25);
       var items = list.GetItems(query);
 
       clientContext.Load(items);
