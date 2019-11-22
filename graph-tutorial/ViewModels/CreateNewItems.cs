@@ -17,7 +17,7 @@ namespace graph_tutorial.ViewModels
     public string Title { get; set; }
     [Required]
     public DateTime Time { get; set; }
-    [StringLength(400, MinimumLength = 10, ErrorMessage = "Invalid")]
+    [StringLength(400, MinimumLength = 5, ErrorMessage = "Invalid")]
     public string Description { get; set; }
     [Required]
     public string Address { get; set; }

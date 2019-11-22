@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using graph_tutorial.Helpers;
 using graph_tutorial.Services;
@@ -22,6 +23,7 @@ namespace graph_tutorial.Controllers
 
     [HttpPost]
     [Authorize]
+    //[ValidateAntiForgeryToken]
     public ActionResult SetListDetail(CreateNewItems model)
     {
       if (!ModelState.IsValid)
@@ -30,9 +32,8 @@ namespace graph_tutorial.Controllers
       }
 
       var clientContext = CsomHelper.GetSpContext();
-
+      var userCollection = FormServices.GetUsers();
       var list = clientContext.Web.Lists.GetByTitle("AwEvents");
-      //clientContext.Load(list);
 
       var itemCreateInfo = new ListItemCreationInformation();
       var fieldData = list.AddItem(itemCreateInfo);
@@ -41,13 +42,15 @@ namespace graph_tutorial.Controllers
       fieldData["Time"] = model.Time;
       fieldData["Description"] = model.Description;
       fieldData["Adress"] = model.Address;
-      //fieldData["Attending"] = "No One";
+      foreach (var user in userCollection)
+      {
+        fieldData["Attending"] = user.Email;
+      }
 
       fieldData.Update();
       clientContext.ExecuteQueryRetry();
 
       return RedirectToAction("Index", "Home");
-
     }
   }
 }

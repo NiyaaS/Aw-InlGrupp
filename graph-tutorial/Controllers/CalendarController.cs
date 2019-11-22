@@ -1,4 +1,4 @@
-﻿using graph_tutorial.Helpers;
+using graph_tutorial.Helpers;
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;

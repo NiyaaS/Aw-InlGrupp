@@ -1,7 +1,36 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+@model System.Threading.Tasks.Task<Microsoft.Graph.IGroupMembersCollectionWithReferencesPage>
 
-<p>Use this area to provide additional information.</p>
+@{
+  ViewBag.Current = "About";
+}
+
+<h2>SpFx Fields ... </h2>
+@*<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Attending</th>
+    </tr>
+  </thead>
+  <tbody>
+    @try
+    {
+    foreach (var item in Model.Result)
+      {
+        <tr>
+          <td> @item.AdditionalData.Values.ToString()</td>
+        </tr>
+      }
+  }
+  catch (Exception e)
+  {
+    <tr>
+      <td><b style="color: orangered">@e.Message</b></td>
+    </tr>
+  }
+    </tbody>
+
+  </table>*@
+
+
+
+
