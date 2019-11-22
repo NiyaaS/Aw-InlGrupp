@@ -17,7 +17,7 @@ namespace graph_tutorial.Controllers
             {
                 // Signal OWIN to send an authorization request to Azure
                 Request.GetOwinContext().Authentication.Challenge(
-                    new AuthenticationProperties { RedirectUri = "/" },
+                    new AuthenticationProperties { RedirectUri = "/Spfx/ListDetail" },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }

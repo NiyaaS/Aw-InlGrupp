@@ -23,15 +23,12 @@
     foreach (var item in Model)
     {
       <tr>
-        <td> @item["Title"]</td>
-        <td> @item["Date"]</td>
-        <td> @item["Time"]</td>
-        <td> @item["Description"]</td>
-        <td> @item["Adress"]</td>
-        @foreach (var name in (FieldUserValue[])item["Attending"])
-        {
-          <td> @name.LookupValue </td>
-        }
+          <td> @item["Title"]</td>
+          <td> @item["Date"]</td>
+          <td> @item["Time"]</td>
+          <td> @item["Description"]</td>
+          <td> @item["Adress"]</td>
+          <td> @item["Users"]</td>
       </tr>
     }
   }

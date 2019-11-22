@@ -8,6 +8,8 @@ using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using System;
+using graph_tutorial.ViewModels;
 
 namespace graph_tutorial.Helpers
 {
@@ -29,6 +31,45 @@ namespace graph_tutorial.Helpers
                 .GetAsync();
 
             return events.CurrentPage;
+        }
+
+        public static async Task SendEmailToUsers(CreateNewItems model)
+        {
+            var graphClient = GetAuthenticatedClient();
+            var gettingUsers = await GetGroupUsers();
+
+            foreach (Microsoft.Graph.User item in gettingUsers.CurrentPage)
+            {
+                var message = new Message
+                {
+                    Subject = "Inbjudan till Aw: " + model.Title,
+                    Body = new ItemBody
+                    {
+                        ContentType = BodyType.Text,
+                        Content = model.Title + "\n" + "\n" 
+                        + model.Description +"\n" + "\n"
+                        + model.Time + "\n"
+                        + model.Address + 
+                        "Med vänlig hälsning \n Aw-Gruppen "
+                    },
+                    ToRecipients = new List<Recipient>()
+                    {
+                        new Recipient
+                        {
+                            EmailAddress = new EmailAddress
+                            {
+                                Address = item.Mail
+                            }
+                        }
+                    }
+                };
+            var saveToSentItems = false;
+
+            await graphClient.Me
+                .SendMail(message, saveToSentItems)
+                .Request()
+                .PostAsync();
+            }
         }
 
         internal static GraphServiceClient GetAuthenticatedClient()
@@ -68,6 +109,16 @@ namespace graph_tutorial.Helpers
             return await graphClient.Me.Request().GetAsync();
         }
 
+        public static async Task<IGroupMembersCollectionWithReferencesPage> GetGroupUsers()
+        {
+            var graphClient = GetAuthenticatedClient();
+
+           
+
+            return await graphClient.Groups["{f0ec948b-59fd-47d3-a39a-aeb551442877}"].Members
+                .Request()
+                .GetAsync();
+        }
 
     }
 }

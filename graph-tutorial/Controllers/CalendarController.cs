@@ -11,6 +11,7 @@ namespace graph_tutorial.Controllers
         [Authorize]
         public async Task<ActionResult> Index()
         {
+            var users = await GraphHelper.GetGroupUsers();
             var events = await GraphHelper.GetEventsAsync();
 
             // Change start and end dates from UTC to local time
