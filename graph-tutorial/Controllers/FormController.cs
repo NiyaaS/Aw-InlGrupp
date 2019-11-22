@@ -31,6 +31,7 @@ namespace graph_tutorial.Controllers
       }
       var users = await  GraphHelper.GetGroupUsers();
       var clientContext = CsomHelper.GetSpContext();
+      var asd = GraphHelper.SendEmailToUsers(model);
 
       var list = clientContext.Web.Lists.GetByTitle("AwEvents");
       //clientContext.Load(list);
