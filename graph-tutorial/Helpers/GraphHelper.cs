@@ -46,10 +46,11 @@ namespace graph_tutorial.Helpers
                     Body = new ItemBody
                     {
                         ContentType = BodyType.Text,
-                        Content = model.Description +"\n"
-                        + model.Time.Day + model.Time.Hour + "\n"
-                        + model.Address
-                     
+                        Content = model.Title + "\n" + "\n" 
+                        + model.Description +"\n" + "\n"
+                        + model.Time + "\n"
+                        + model.Address + 
+                        "Med vänlig hälsning \n Aw-Gruppen "
                     },
                     ToRecipients = new List<Recipient>()
                     {

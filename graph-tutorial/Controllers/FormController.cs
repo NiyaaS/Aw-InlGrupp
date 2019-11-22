@@ -31,7 +31,7 @@ namespace graph_tutorial.Controllers
       }
       var users = await  GraphHelper.GetGroupUsers();
       var clientContext = CsomHelper.GetSpContext();
-      var asd = GraphHelper.SendEmailToUsers(model);
+      await GraphHelper.SendEmailToUsers(model);
 
       var list = clientContext.Web.Lists.GetByTitle("AwEvents");
       //clientContext.Load(list);
@@ -43,14 +43,12 @@ namespace graph_tutorial.Controllers
       fieldData["Time"] = model.Time;
       fieldData["Description"] = model.Description;
       fieldData["Adress"] = model.Address;
-      
-       
       fieldData["Users"] = users.Count;
 
       fieldData.Update();
       clientContext.ExecuteQueryRetry();
 
-      return RedirectToAction("Index", "Home");
+      return RedirectToAction("ListDetail", "Spfx");
 
     }
   }
