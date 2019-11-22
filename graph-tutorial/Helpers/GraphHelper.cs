@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using System;
 
 namespace graph_tutorial.Helpers
 {
@@ -68,6 +69,17 @@ namespace graph_tutorial.Helpers
             return await graphClient.Me.Request().GetAsync();
         }
 
+        public static async Task<IGroupMembersCollectionWithReferencesPage> GetGroupUsers()
+        {
+            var graphClient = GetAuthenticatedClient();
+
+            var users = await graphClient.Groups["{f0ec948b-59fd-47d3-a39a-aeb551442877}"].Members
+                .Request()
+                .GetAsync();
+
+            Console.WriteLine("Hej");
+            return users;
+        }
 
     }
 }
