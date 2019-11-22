@@ -13,112 +13,51 @@ using graph_tutorial.ViewModels;
 
 namespace graph_tutorial.Helpers
 {
-    public static class GraphHelper
+  public static class GraphHelper
+  {
+    private static string appId = ConfigurationManager.AppSettings["ida:AppId"];
+    private static string appSecret = ConfigurationManager.AppSettings["ida:AppSecret"];
+    private static string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
+    private static string graphScopes = ConfigurationManager.AppSettings["ida:AppScopes"];
+
+    
+
+    internal static GraphServiceClient GetAuthenticatedClient()
     {
-        private static string appId = ConfigurationManager.AppSettings["ida:AppId"];
-        private static string appSecret = ConfigurationManager.AppSettings["ida:AppSecret"];
-        private static string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
-        private static string graphScopes = ConfigurationManager.AppSettings["ida:AppScopes"];
+      return new GraphServiceClient(
+        new DelegateAuthenticationProvider(
+          async (requestMessage) =>
+          {
+            var idClient = ConfidentialClientApplicationBuilder.Create(appId)
+              .WithRedirectUri(redirectUri)
+              .WithClientSecret(appSecret)
+              .Build();
 
-        public static async Task<IEnumerable<Event>> GetEventsAsync()
+            var tokenStore = new SessionTokenStore(idClient.UserTokenCache,
+              HttpContext.Current, ClaimsPrincipal.Current);
 
-        {
-            var graphClient = GetAuthenticatedClient();
+            var accounts = await idClient.GetAccountsAsync();
 
-            var events = await graphClient.Me.Events.Request()
-                .Select("subject,organizer,start,end")
-                .OrderBy("createdDateTime DESC")
-                .GetAsync();
+            var scopes = graphScopes.Split(' ');
+            var result = await idClient.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
+              .ExecuteAsync();
 
-            return events.CurrentPage;
-        }
-
-        public static async Task SendEmailToUsers(CreateNewItems model)
-        {
-            var graphClient = GetAuthenticatedClient();
-            var gettingUsers = await GetGroupUsers();
-
-            foreach (Microsoft.Graph.User item in gettingUsers.CurrentPage)
-            {
-                var message = new Message
-                {
-                    Subject = "Inbjudan till Aw: " + model.Title,
-                    Body = new ItemBody
-                    {
-                        ContentType = BodyType.Text,
-                        Content = model.Title + "\n" + "\n" 
-                        + model.Description +"\n" + "\n"
-                        + model.Time + "\n"
-                        + model.Address + 
-                        "Med vänlig hälsning \n Aw-Gruppen "
-                    },
-                    ToRecipients = new List<Recipient>()
-                    {
-                        new Recipient
-                        {
-                            EmailAddress = new EmailAddress
-                            {
-                                Address = item.Mail
-                            }
-                        }
-                    }
-                };
-            var saveToSentItems = false;
-
-            await graphClient.Me
-                .SendMail(message, saveToSentItems)
-                .Request()
-                .PostAsync();
-            }
-        }
-
-        internal static GraphServiceClient GetAuthenticatedClient()
-        {
-            return new GraphServiceClient(
-                new DelegateAuthenticationProvider(
-                    async (requestMessage) =>
-                    {
-                        var idClient = ConfidentialClientApplicationBuilder.Create(appId)
-                            .WithRedirectUri(redirectUri)
-                            .WithClientSecret(appSecret)
-                            .Build();
-
-                        var tokenStore = new SessionTokenStore(idClient.UserTokenCache,
-                                HttpContext.Current, ClaimsPrincipal.Current);
-
-                        var accounts = await idClient.GetAccountsAsync();
-
-                var scopes = graphScopes.Split(' ');
-                        var result = await idClient.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
-                            .ExecuteAsync();
-
-                        requestMessage.Headers.Authorization =
-                            new AuthenticationHeaderValue("Bearer", result.AccessToken);
-                    }));
-        }
-        public static async Task<User> GetUserDetailsAsync(string accessToken)
-        {
-            var graphClient = new GraphServiceClient(
-                new DelegateAuthenticationProvider(
-                    async (requestMessage) =>
-                    {
-                        requestMessage.Headers.Authorization =
-                            new AuthenticationHeaderValue("Bearer", accessToken);
-                    }));
-
-            return await graphClient.Me.Request().GetAsync();
-        }
-
-        public static async Task<IGroupMembersCollectionWithReferencesPage> GetGroupUsers()
-        {
-            var graphClient = GetAuthenticatedClient();
-
-           
-
-            return await graphClient.Groups["{f0ec948b-59fd-47d3-a39a-aeb551442877}"].Members
-                .Request()
-                .GetAsync();
-        }
-
+            requestMessage.Headers.Authorization =
+              new AuthenticationHeaderValue("Bearer", result.AccessToken);
+          }));
     }
+
+    public static async Task<User> GetUserDetailsAsync(string accessToken)
+    {
+      var graphClient = new GraphServiceClient(
+        new DelegateAuthenticationProvider(
+          async (requestMessage) =>
+          {
+            requestMessage.Headers.Authorization =
+              new AuthenticationHeaderValue("Bearer", accessToken);
+          }));
+
+      return await graphClient.Me.Request().GetAsync();
+    }
+  }
 }

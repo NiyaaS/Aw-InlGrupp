@@ -1,0 +1,86 @@
+@{
+    ViewBag.Title = "Index";
+}
+
+<form>
+  <div class="form-group row">
+    <label for="exampleInputEmail1" class="col-sm-2">Title</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="Title" placeholder="Enter Event Name">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="" class="col-sm-2">Date</label>
+    <div class="col-sm-7">
+      <input type="datetime-local" class="form-control" id="Date">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="" class="col-sm-2">Description</label>
+    <div class="col-sm-7">
+      <textarea class="form-control" id="Description" rows="3"></textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="" class="col-sm-2">Address</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="Adress" placeholder="Adress">
+    </div>
+  </div>
+  <h1></h1>
+  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+
+</form>
+
+
+
+@*oListItem["Title"] = "My New Item!";
+oListItem["Time"] = "Hello World!";
+oListItem["Description"] = "Hello World!";
+oListItem["Adress"] = "Hello World!";*@
+
+
+
+//
+s
+    [HttpPost]
+    [Authorize]
+    //[ValidateAntiForgeryToken]
+    public ActionResult SetListDetail(CreateNewItems model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(model);
+      }
+
+      var clientContext = CsomHelper.GetSpContext();
+      var userCollection = FormServices.GetUsers();
+      var list = clientContext.Web.Lists.GetByTitle("AwEvents");
+
+      var itemCreateInfo = new ListItemCreationInformation();
+      var fieldData = list.AddItem(itemCreateInfo);
+
+      fieldData["Title"] = model.Title;
+      fieldData["Time"] = model.Time;
+      fieldData["Description"] = model.Description;
+      fieldData["Adress"] = model.Address;
+      foreach (var user in userCollection)
+      {
+        fieldData["Attending"] = user.Email;
+      }
+
+      fieldData.Update();
+      clientContext.ExecuteQueryRetry();
+
+      return RedirectToAction("Index", "Home");
+    }
+
+//
+
+
+Content = model.Title + "\n" + "\n"
+                      + model.Description + "\n" + "\n"
+                      + model.Time + "\n" + "\n"
+                      + model.Address + "\n" + "\n"
+                      + "Med vänlig hälsning \n Aw-Gruppen "
+          },

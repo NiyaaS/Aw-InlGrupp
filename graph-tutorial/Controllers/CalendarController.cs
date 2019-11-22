@@ -2,6 +2,7 @@ using graph_tutorial.Helpers;
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using graph_tutorial.Services;
 
 namespace graph_tutorial.Controllers
 {
@@ -11,8 +12,8 @@ namespace graph_tutorial.Controllers
         [Authorize]
         public async Task<ActionResult> Index()
         {
-            var users = await GraphHelper.GetGroupUsers();
-            var events = await GraphHelper.GetEventsAsync();
+            var users = await FormServices.GetGroupUsers();
+            var events = await CalendarServices.GetEventsAsync();
 
             // Change start and end dates from UTC to local time
             foreach (var ev in events)

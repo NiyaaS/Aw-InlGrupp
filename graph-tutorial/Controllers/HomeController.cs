@@ -14,20 +14,6 @@ namespace graph_tutorial.Controllers
       return View();
     }
 
-
-    public ActionResult About()
-    {
-      var users = FormServices.GetUsersAsync();
-      return View(users);
-    }
-
-
-    public ActionResult Contact()
-    {
-      ViewBag.Message = "Your contact page.";
-
-      return View();
-    }
     public ActionResult Error(string message, string debug)
     {
       Flash(message, debug);

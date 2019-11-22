@@ -1,4 +1,4 @@
-﻿using Microsoft.Identity.Client;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin.Security;
@@ -39,23 +39,7 @@ namespace graph_tutorial
                     PostLogoutRedirectUri = redirectUri,
                     TokenValidationParameters = new TokenValidationParameters
                     {
-                        // For demo purposes only, see below
                         ValidateIssuer = false
-
-                        // In a real multi-tenant app, you would add logic to determine whether the
-                        // issuer was from an authorized tenant
-                        //ValidateIssuer = true,
-                        //IssuerValidator = (issuer, token, tvp) =>
-                        //{
-                        //  if (MyCustomTenantValidation(issuer))
-                        //  {
-                        //    return issuer;
-                        //  }
-                        //  else
-                        //  {
-                        //    throw new SecurityTokenInvalidIssuerException("Invalid issuer");
-                        //  }
-                        //}
                     },
                     Notifications = new OpenIdConnectAuthenticationNotifications
                     {

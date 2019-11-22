@@ -29,12 +29,11 @@ namespace graph_tutorial.Controllers
       {
         return View(model);
       }
-      var users = await  GraphHelper.GetGroupUsers();
+      var users = await  FormServices.GetGroupUsers();
       var clientContext = CsomHelper.GetSpContext();
-      await GraphHelper.SendEmailToUsers(model);
+      await MailServices.SendEmailToUsers(model);
 
       var list = clientContext.Web.Lists.GetByTitle("AwEvents");
-      //clientContext.Load(list);
 
       var itemCreateInfo = new ListItemCreationInformation();
       var fieldData = list.AddItem(itemCreateInfo);

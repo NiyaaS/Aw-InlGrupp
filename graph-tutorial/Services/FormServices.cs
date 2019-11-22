@@ -7,7 +7,6 @@ using graph_tutorial.Helpers;
 using graph_tutorial.ViewModels;
 using Microsoft.Graph;
 using Microsoft.SharePoint.Client;
-using ListItem = Microsoft.SharePoint.Client.ListItem;
 
 namespace graph_tutorial.Services
 {
@@ -21,10 +20,7 @@ namespace graph_tutorial.Services
         .Select("givenName,userPrincipalName")
         .GetAsync();
 
-                         //<<<< Doesn't work !!!>>>> 
-
       //List<MembersCount> items = new List<MembersCount>();
-
       //if (members?.Count > 0)
       //{
       //  foreach (var user in members)
@@ -42,7 +38,6 @@ namespace graph_tutorial.Services
       return members;
     }
 
-
     public static UserCollection GetUsers()
     {
       var clientContext = CsomHelper.GetSpContext();
@@ -54,7 +49,21 @@ namespace graph_tutorial.Services
       clientContext.ExecuteQueryRetry();
       return userCollection;
     }
+
+
+
+
+
+
+
+    public static async Task<IGroupMembersCollectionWithReferencesPage> GetGroupUsers()
+    {
+      var graphClient = GraphHelper.GetAuthenticatedClient();
+      return await graphClient.Groups["{f0ec948b-59fd-47d3-a39a-aeb551442877}"].Members
+        .Request()
+        .GetAsync();
+    }
+
     
   }
-
 }
