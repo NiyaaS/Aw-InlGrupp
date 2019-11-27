@@ -19,5 +19,11 @@ namespace graph_tutorial.Controllers
       var fieldData = SpFxServices.GetListData();
       return View(fieldData);
     }
+
+    public ActionResult Error(string message, string debug)
+    {
+      Flash(message, debug);
+      return RedirectToAction("ListDetail");
+    }
   }
 }

@@ -1,25 +1,26 @@
-﻿@{
-    var alerts = TempData.ContainsKey(graph_tutorial.Models.Alert.AlertKey) ?
-        (List<graph_tutorial.Models.Alert>)TempData[graph_tutorial.Models.Alert.AlertKey] :
-        new List<graph_tutorial.Models.Alert>();
+@{
+  var alerts = TempData.ContainsKey(graph_tutorial.Models.Alert.AlertKey) ?
+      (List<graph_tutorial.Models.Alert>)TempData[graph_tutorial.Models.Alert.AlertKey] :
+      new List<graph_tutorial.Models.Alert>();
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASP.NET Graph Tutorial</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWs</title>
+  @Styles.Render("~/Content/css")
+  @Scripts.Render("~/bundles/modernizr")
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
-          crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<body style="background-image: url('/Services/bg.jpg'); background-size: cover; background-repeat: no-repeat;">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background: darkslategray">
     <div class="container">
       @Html.ActionLink("Aw är kul!", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -30,50 +31,41 @@
         <ul class="navbar-nav mr-auto">
           @if (Request.IsAuthenticated)
           {
-          <li class="nav-item">
-            @Html.ActionLink("Home", "Index", "Home", new { area = "" },
-                new { @class = ViewBag.Current == "Home" ? "nav-link active" : "nav-link" })
-          </li>
-            <li class="nav-item" data-turbolinks="false">
-              @Html.ActionLink("Calendar", "Index", "Calendar", new { area = "" },
-                new { @class = ViewBag.Current == "Calendar" ? "nav-link active" : "nav-link" })
-            </li>
             <li class="nav-item" data-turbolinks="false">
               @Html.ActionLink("Bokade Aw:s", "ListDetail", "SpFx", new { area = "" },
                 new { @class = ViewBag.Current == "SharePoint List Detail" ? "nav-link active" : "nav-link" })
             </li>
             <li class="nav-item">
               @Html.ActionLink("Skapa Aw", "SetListDetail", "Form", new { area = "" },
-                  new { @class = ViewBag.Current == "Form" ? "nav-link active" : "nav-link" })
+                new { @class = ViewBag.Current == "Form" ? "nav-link active" : "nav-link" })
+            </li>
+            <li class="nav-item" data-turbolinks="false">
+              @Html.ActionLink("Calendar", "Index", "Calendar", new { area = "" },
+                new { @class = ViewBag.Current == "Calendar" ? "nav-link active" : "nav-link" })
             </li>
           }
         </ul>
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item">
-            <a class="nav-link" href="https://developer.microsoft.com/graph/docs/concepts/overview" target="_blank">
-              <i class="fas fa-external-link-alt mr-1"></i>Docs
-            </a>
-          </li>
           @if (Request.IsAuthenticated)
           {
             <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                      @if (!string.IsNullOrEmpty(ViewBag.User.Avatar))
-                      {
-                          <img src="@ViewBag.User.Avatar" class="rounded-circle align-self-center mr-2" style="width: 32px;">
-                      }
-                      else
-                      {
-                          <i class="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style="width: 32px;"></i>
-                      }
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right">
-                      <h5 class="dropdown-item-text mb-0">@ViewBag.User.DisplayName</h5>
-                      <p class="dropdown-item-text text-muted mb-0">@ViewBag.User.Email</p>
-                      <div class="dropdown-divider"></div>
-                      @Html.ActionLink("Sign Out", "SignOut", "Account", new { area = "" }, new { @class = "dropdown-item" })
-                  </div>
-              </li>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                @if (!string.IsNullOrEmpty(ViewBag.User.Avatar))
+                {
+                  <img src="@ViewBag.User.Avatar" class="rounded-circle align-self-center mr-2" style="width: 32px;">
+                }
+                else
+                {
+                  <i class="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style="width: 32px;"></i>
+                }
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <h5 class="dropdown-item-text mb-0">@ViewBag.User.DisplayName</h5>
+                <p class="dropdown-item-text text-muted mb-0">@ViewBag.User.Email</p>
+                <div class="dropdown-divider"></div>
+                @Html.ActionLink("Sign Out", "SignOut", "Account", new { area = "" }, new { @class = "dropdown-item" })
+              </div>
+            </li>
           }
           else
           {

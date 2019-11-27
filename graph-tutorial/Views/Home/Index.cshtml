@@ -1,20 +1,54 @@
-﻿@{
-    ViewBag.Current = "Home";
+@model graph_tutorial.ViewModels.ResultsViewModel
+@{
+  ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    @if (Request.IsAuthenticated)
-    {
-        <span>Welcome @ViewBag.User.DisplayName!</span>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text"></p>
-            </div>
-        </div>
-    }
-    else
-    {
-        @Html.ActionLink("Click here to sign in", "SignIn", "Account", new { area = "" }, new { @class = "btn btn-primary btn-large" })
-    }
+<div class="col-md-12">
+  @if (Request.IsAuthenticated)
+  {
+    <div class="col-md-12" style="margin-top: 70px;">
+      @if (Model != null)
+      {
+        if (Model.Items.Any())
+        {
+          foreach (var item in Model.Items)
+          {
+            if (item.Properties.Count > 0)
+            {
+              <aside style="width: 80%; padding-left: .5rem; margin-left: .5rem; float: right; box-shadow: inset 5px 0 5px -5px red;">
+                <h2 style="color: orange; margin-top: 55px;">Welcome <strong style="color: green">@ViewBag.User.DisplayName</strong> !</h2>
+              </aside>
+              <table id="entity">
+                @foreach (var property in item.Properties)
+                {
+                  <tr>
+                    @if (property.Key != "Stream")
+                    {
+                      <td>@property.Key</td>
+                      <td>@property.Value</td>
+                    }
+                    else if (property.Value != null)
+                    {
+                      <td style="text-align: center; align-content: center;">
+                        <img height="105" width="100" src="@String.Format("data:image;base64,{0}", Convert.ToBase64String(property.Value as byte[] ?? throw new InvalidOperationException()))"/>
+                      </td>
+                    }
+                  </tr>
+                }
+              </table>
+            }
+          }
+        }
+      }
+      <br/>
+    </div>
+  }
+  else
+  {
+    <div class="animated bounceInDown" style="display: flex; align-items: center; justify-content: center; margin-top: 350px">
+      @Html.ActionLink("Click here to sign in", "SignIn", "Account",
+        new { area = "" }, new { @class = "btn btn-success" })
+    </div>
+  }
 </div>
+
