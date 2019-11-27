@@ -48,7 +48,6 @@ namespace graph_tutorial.Controllers
       clientContext.ExecuteQueryRetry();
 
       return RedirectToAction("ListDetail", "Spfx");
-
     }
 
     public ActionResult Error(string message, string debug)

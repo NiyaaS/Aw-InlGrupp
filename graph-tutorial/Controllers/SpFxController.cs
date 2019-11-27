@@ -12,7 +12,6 @@ namespace graph_tutorial.Controllers
 {
   public class SpFxController : BaseController
   {
-    // GET: SpFx
     [Authorize]
     public ActionResult ListDetail()
     {

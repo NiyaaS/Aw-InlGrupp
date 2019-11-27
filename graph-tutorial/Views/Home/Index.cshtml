@@ -16,7 +16,10 @@
             if (item.Properties.Count > 0)
             {
               <aside style="width: 80%; padding-left: .5rem; margin-left: .5rem; float: right; box-shadow: inset 5px 0 5px -5px red;">
-                <h2 class="animated bounceInRight" style="color: orange; margin-top: 55px;"> Welcome <strong style="color: green">@ViewBag.User.DisplayName</strong> !</h2>
+                <h2 class="animated bounceInRight" style="color: orange; margin-top: 55px;">
+                  Welcome
+                  <strong style="color: green">@ViewBag.User.DisplayName</strong> !
+                </h2>
               </aside>
               <table id="entity">
                 @foreach (var property in item.Properties)
@@ -30,7 +33,9 @@
                     else if (property.Value != null)
                     {
                       <td style="text-align: center; align-content: center;">
-                        <img class="animated bounceInUp " height="105" width="100" src="@String.Format("data:image;base64,{0}", Convert.ToBase64String(property.Value as byte[] ?? throw new InvalidOperationException()))"/>
+                        <img class="animated bounceInUp " height="105" width="100"
+                             src="@String.Format("data:image;base64,{0}",
+                                    Convert.ToBase64String(property.Value as byte[] ?? throw new InvalidOperationException()))" />
                       </td>
                     }
                   </tr>
@@ -40,7 +45,7 @@
           }
         }
       }
-      <br/>
+      <br />
     </div>
   }
   else

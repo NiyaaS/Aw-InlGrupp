@@ -12,7 +12,6 @@ namespace graph_tutorial.Controllers
 {
   public class HomeController : BaseController
   {
-
     public async Task<ActionResult> Index()
     {
       var viewModel = new ResultsViewModel {Items = await HomeServices.GetMyPhoto()};

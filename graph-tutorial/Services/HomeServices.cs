@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 using graph_tutorial.Helpers;
 using graph_tutorial.ViewModels;
-using Microsoft.Graph;
-using IOFile= System.IO.File;
-using Microsoft.IdentityModel.Claims;
 
 namespace graph_tutorial.Services
 {
